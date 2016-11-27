@@ -2,8 +2,8 @@ import { Routes, RouterModule }  from '@angular/router';
 
 import { Appcontents } from './appcontents.component';
 
-import { List } from './components/list/list.component';
-import { Edit } from './components/edit/edit.component';
+import { List } from './components/list';
+import { Edit } from './components/edit';
 
 
 // noinspection TypeScriptValidateTypes

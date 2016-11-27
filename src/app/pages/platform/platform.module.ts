@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { NgaModule } from '../../theme/nga.module';
 
-import { routing } from './paltform.routing';
+import { routing } from './platform.routing';
 import { PaginationModule } from 'ng2-bootstrap/ng2-bootstrap';
 
 import { PagesService } from '../pages.service';
@@ -34,4 +34,4 @@ import { EditService } from './components/edit/edit.service';
         EditService
     ]
 })
-export default class PlatformsModule { }
+export default class PlatformsModule { } 

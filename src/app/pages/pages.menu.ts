@@ -18,13 +18,26 @@ export const PAGES_MENU = [
       {
         path: 'appcontents',
         data: {
-          menu:{
+          menu: {
             title: '内容管理',
             label: '内容管理',
             icon: 'ion-compose',
             selected: false,
             expanded: false,
             order: 10
+          }
+        }
+      },
+      {
+        path: 'platform',
+        data: {
+          menu: {
+            title: '平台管理',
+            label: '平台管理',
+            icon: 'ion-compose',
+            selected: false,
+            expanded: false,
+            order: 20
           }
         }
       },

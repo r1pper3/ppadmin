@@ -23,6 +23,10 @@ const routes: Routes = [
                 path: 'appcontents',
                 loadChildren: () => System.import('./appcontents/appcontents.module')
             },
+            {
+                path: 'platform',
+                loadChildren: () => System.import('./platform/platform.module')
+            },
             // { path: 'editors', loadChildren: () => System.import('./editors/editors.module') },
             // //{ path: 'components', loadChildren: () => System.import('./components/components.module') }
             // { path: 'charts', loadChildren: () => System.import('./charts/charts.module') },
