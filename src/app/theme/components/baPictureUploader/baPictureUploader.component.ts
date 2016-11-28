@@ -1,16 +1,19 @@
-import { Component, ViewChild, Input, Output, EventEmitter, ElementRef, Renderer } from '@angular/core';
+import { Component, ViewChild, Input, Output, EventEmitter, ElementRef, Renderer, Self } from '@angular/core';
 // import { Ng2UploaderModule } from 'ng2-uploader';
 // import {Ng2Uploader} from 'ng2-uploader/ng2-uploader';
 import { Ng2Uploader } from 'ng2-uploader/src/services/ng2-uploader';
 
+import { ControlValueAccessor, NgModel } from '@angular/forms';
+
+
 
 @Component({
-    selector: 'ba-picture-uploader',
+    selector: 'ba-picture-uploader[ngModel]',
     styles: [require('./baPictureUploader.scss')],
     template: require('./baPictureUploader.html'),
     providers: [Ng2Uploader]
 })
-export class BaPictureUploader {
+export class BaPictureUploader implements ControlValueAccessor {
 
     @Input() defaultPicture: string = '';
     @Input() picture: string = '';
@@ -24,11 +27,29 @@ export class BaPictureUploader {
     @ViewChild('fileUpload') protected _fileUpload: ElementRef;
 
     public uploadInProgress: boolean = false;
+    public model: NgModel;
+    public state: boolean;
 
     uploadFile: any;
 
-    constructor(private renderer: Renderer, protected _uploader: Ng2Uploader) {
+    constructor(private renderer: Renderer, protected _uploader: Ng2Uploader, @Self() state: NgModel) {
+        this.model = state;
+        state.valueAccessor = this;
     }
+
+    public onChange(value: any): void { }
+    public onTouch(value: any): void { }
+    public writeValue(state: any): void {
+        this.state = state;
+    }
+
+    public registerOnChange(fn: any): void {
+        this.onChange = function (state: boolean) {
+            this.writeValue(state);
+            this.model.viewToModelUpdate(state);
+        }
+    }
+    public registerOnTouched(fn: any): void { this.onTouch = fn; }
 
     public ngOnInit(): void {
         if (this._canUploadOnServer()) {
@@ -46,15 +67,16 @@ export class BaPictureUploader {
 
     public onFiles(): void {
         let files = this._fileUpload.nativeElement.files;
-        console.log(this._fileUpload);
         if (files.length) {
             const file = files[0];
             this._changePicture(file);
             if (this._canUploadOnServer()) {
+                let filesObj = [];
+                for (let f of files) {
+                    filesObj.push(f);
+                }
                 this.uploadInProgress = true;
-                console.log(typeof files.forEach);
-                console.log(typeof files, files);
-                this._uploader.addFilesToQueue(files);
+                this._uploader.addFilesToQueue(filesObj);
             }
         }
     }
@@ -65,6 +87,7 @@ export class BaPictureUploader {
     }
 
     public removePicture(): boolean {
+        this.model.viewToModelUpdate({});
         this.picture = '';
         return false;
     }
@@ -75,7 +98,6 @@ export class BaPictureUploader {
             this.picture = (<any>event.target).result;
         }, false);
         reader.readAsDataURL(file);
-        // console.log(reader);
     }
 
     protected _onUpload(data): void {
@@ -89,6 +111,7 @@ export class BaPictureUploader {
     protected _onUploadCompleted(data): void {
         this.uploadInProgress = false;
         this.onUploadCompleted.emit(data);
+        this.model.viewToModelUpdate(data);
     }
 
     protected _canUploadOnServer(): boolean {
