@@ -33,7 +33,7 @@ export class Edit {
             console.log(params);
             if (isNaN(id)) {
                 this.headerTitle = '新建内容';
-                this.cForm = new PlatformForm(10, '', true);
+                this.cForm = new PlatformForm(10, true, '', true);
                 console.log(this.cForm);
             } else {
                 this.headerTitle = '编辑内容';

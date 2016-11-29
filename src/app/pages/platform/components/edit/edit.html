@@ -23,16 +23,30 @@
                             <div class="form-group row">
                                 <label for="inputPassword3" class="col-sm-2 form-control-label">平台图片</label>
                                 <div class="col-sm-10">
-                                    <p>test: {{cForm.platFormPic | json}}</p>
-                                    <ba-picture-uploader [(ngModel)]="cForm.platFormPic" [ngModelOptions]="{standalone: true}" [uploaderOptions]="{url: 'http://127.0.0.1/upload.php'}"></ba-picture-uploader>
+                                    <p [hidden]="true">test: {{cForm.platFormPic | json}}</p>
+                                    <ba-picture-uploader [(ngModel)]="cForm.platFormPic" [ngModelOptions]="{standalone: true}" [uploaderOptions]="{url: 'http://192.168.142.34:82/upload.php'}" [picture]="''"></ba-picture-uploader>
                                 </div>
                             </div>
-                            <div class=" form-group row ">
-                                <div class="col-sm-offset-2 col-sm-10 ">
+                            <div class="form-group row">
+                                <label for="inputPassword3" class="col-sm-2 form-control-label"></label>
+                                <div class="col-sm-10">
+                                    <label class="radio-inline custom-radio nowrap">
+                                        <input type="radio" name="isVisible" id="isVisible1" [value]="true" [(ngModel)]="cForm.isVisible">
+                                        <span>显示</span>
+                                    </label>
+                                    <label class="radio-inline custom-radio nowrap">
+                                        <input type="radio" name="isVisible" id="isVisible2" [value]="false" [(ngModel)]="cForm.isVisible">
+                                        <span>隐藏</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class=" form-group row">
+                                <div class="offset-sm-2 col-sm-10 ">
                                     <button type="submit " class="btn btn-info ">保存</button>
                                     <button type="button " class="btn btn-warning ">取消</button>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>
