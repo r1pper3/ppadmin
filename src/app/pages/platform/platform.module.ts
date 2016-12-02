@@ -14,6 +14,8 @@ import { ListService } from './components/list/list.service';
 import { Edit } from './components/edit';
 import { EditService } from './components/edit/edit.service';
 
+import { SelectModule } from 'angular2-select';
+
 
 @NgModule({
     imports: [
@@ -21,7 +23,8 @@ import { EditService } from './components/edit/edit.service';
         FormsModule,
         NgaModule,
         routing,
-        PaginationModule
+        PaginationModule,
+        SelectModule
     ],
     declarations: [
         Platform,
